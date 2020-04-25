@@ -1,0 +1,72 @@
+version: "3"
+
+networks: 
+  net:
+    external:
+      name: net
+
+############
+# 基盤
+############
+services:
+  app_php:
+    build:
+      context: ./docker/php
+      args:
+        - XDEBUG_IDEKEY=${XDEBUG_IDEKEY}
+        - XDEBUG_REMOTE_HOST=${XDEBUG_REMOTE_HOST}
+        - XDEBUG_REMOTE_CONNECT_BACK=${XDEBUG_REMOTE_CONNECT_BACK}
+    container_name: "app_php"
+    volumes:
+      - ${SRC_DIR}:/var/www/dev-web/:z
+      - ./logs/php/:/var/log/php/error.log
+    environment:
+      - TZ="Asia/Tokyo"
+    tty: true
+    command: >
+        bash -c "php-fpm"
+    depends_on:
+      - app_db
+    networks: 
+      - net
+
+  app_nginx:
+    build: 
+      context: ./docker/nginx
+      args:
+        - VIRTUAL_HOST=${VIRTUAL_HOST}
+    container_name: "app_nginx"
+    hostname: "app-nginx"
+    depends_on:
+      - app_php
+    links:
+      - app_php:php
+    ports:
+      - ${WEB_PORT}:80
+    volumes:
+      - ${SRC_DIR}:/var/www/dev-web:z
+      - ./logs/nginx:/var/log/nginx
+      - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+    environment:
+      - TZ="Asia/Tokyo"
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+    networks: 
+      - net
+
+  app_db:
+    image: mysql:5.7
+    container_name: "app_db"
+    volumes:
+      - ./logs/mysql:/var/log/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
+      - TZ="Asia/Tokyo"
+    ports:
+      - ${DB_PORT}:3306
+    networks: 
+      - net
