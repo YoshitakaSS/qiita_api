@@ -77,6 +77,7 @@ services:
       context: ./docker/python
     tty: true
     volumes:
-      - ./docker/python:/usr/src/app
+      - ./batch:/usr/src/app
+      - ./mnt:/mnt
     networks: 
       - qiita
