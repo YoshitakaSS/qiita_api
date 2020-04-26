@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup;
 import json
 import datetime
 
+today_date = datetime.datetime.now().date()
+
 def get_article_tags(detail_url):
     """
     @detail_url : article url
@@ -30,7 +32,6 @@ def get_article_tags(detail_url):
 
 def write_json(json_list):
     # jsonファイルを書き出し
-    today_date = datetime.datetime.now().date()
     with open(f'/mnt/json/{today_date}.json', 'w') as f:
         f.write(json.dumps(json_list, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ':')))
 
@@ -88,5 +89,5 @@ try:
     
 except Exception as e:
     # jsonファイル作成失敗
-    with open(f'/mnt/log/{datetime.datetime.now().date()}', 'w') as f:
+    with open(f'/mnt/log/{today_date}', 'w') as f:
         f.write(e)
