@@ -32,7 +32,7 @@ xdebug.remote_connect_back = XDEBUG_REMOTE_CONNECT_BACK\n\
     && sed -i -e "s/XDEBUG_REMOTE_HOST/${XDEBUG_REMOTE_HOST}/" /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && sed -i -e "s/XDEBUG_REMOTE_CONNECT_BACK/${XDEBUG_REMOTE_CONNECT_BACK}/" /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
-WORKDIR /var/www/dev-web
+WORKDIR /var/www/qiita
 
 RUN composer global require "laravel/installer"
 RUN composer require --dev barryvdh/laravel-debugbar
