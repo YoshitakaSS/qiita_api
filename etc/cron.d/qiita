@@ -1,0 +1,2 @@
+# Create Article JSON (every day AM:10:00)
+* 10 * * * /usr/src/app/sh/get_article.sh
