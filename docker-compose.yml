@@ -20,6 +20,7 @@ services:
     volumes:
       - ${SRC_DIR}:/var/www/qiita/:z
       - ./logs/php/:/var/log/php/error.log
+      - ./mnt:/mnt
     environment:
       - TZ="Asia/Tokyo"
     tty: true
@@ -79,5 +80,6 @@ services:
     volumes:
       - ./batch:/usr/src/app
       - ./mnt:/mnt
-    networks: 
+      - ./etc/cron.d:/etc/cron.d
+    networks:
       - qiita
