@@ -10,7 +10,7 @@ RUN apt-get update \
 RUN pecl install xdebug \
   && docker-php-ext-enable xdebug
 
-#Composer install
+# composer install
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set composer environment
@@ -38,7 +38,10 @@ xdebug.remote_connect_back = XDEBUG_REMOTE_CONNECT_BACK\n\
 WORKDIR /var/www/qiita
 
 RUN composer global require "laravel/installer"
+# for blade
 RUN composer require --dev barryvdh/laravel-debugbar
+# for api develop
+RUN composer require --dev laravel/telescope 
 
 # RUN /usr/sbin/setenforce Permissive
 
