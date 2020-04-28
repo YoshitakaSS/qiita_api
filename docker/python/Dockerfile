@@ -1,6 +1,6 @@
 FROM python:3
 
-ARG project_dir=/usr/src/app
+ARG project_dir=/usr/src/app/py
 
 RUN apt-get update && \
     apt-get install -y cron && \
