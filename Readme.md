@@ -42,10 +42,10 @@ add text line in config/app.php
 ```php
 
     'providers' => [
-+       Barryvdh\Debugbar\ServiceProvider::class, # providersの中に追加
++       Barryvdh\Debugbar\ServiceProvider::class,
     ],
     'aliases' => [
-+       'Debugbar' => Barryvdh\Debugbar\Facade::class, # aliasesの中に追加
++       'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 ```
 
