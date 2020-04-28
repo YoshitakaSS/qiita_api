@@ -8,12 +8,12 @@ docker network create qiita
 
 ### To Use Laravel Project
 
-#### laravel-debugbar
+#### ◆laravel-debugbar
 
 If the following files are not created
 
-/config/debugbar.php  
-/vendor/barryvdh/laravel-debugbar/config/debugbar.php
+- /config/debugbar.php
+- /vendor/barryvdh/laravel-debugbar/config/debugbar.php
 
 
 ```bash
