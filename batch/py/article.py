@@ -2,6 +2,7 @@ import requests;
 from bs4 import BeautifulSoup;
 import json
 import datetime
+import os
 
 today_date = datetime.datetime.now().date()
 
@@ -30,10 +31,18 @@ def get_article_tags(detail_url):
 
     return tag_list
 
-def write_json(json_list):
-    # jsonファイルを書き出し
-    with open(f'/mnt/json/{today_date}.json', 'w') as f:
+def write_json(json_list, path):
+    """
+    @json_list : json
+    @path : file path
+
+    JSONファイル書き出し
+    """
+    with open(path, 'w') as f:
         f.write(json.dumps(json_list, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ':')))
+
+def mkdir(path):
+    os.makedirs(path, exist_ok=True)
 
 try:
     # Root URL
@@ -45,6 +54,7 @@ try:
 
     item_json = []
     item_detail_json = []
+    tags_json = []
     result = []
 
     res = requests.get(url, headers=headers)
@@ -81,13 +91,19 @@ try:
             }
 
             item_detail_json.append(item)
+            tags_json.append(tag_list)
+
+        mkdir('/mnt/json/list/')
+        mkdir('/mnt/json/tag/')
 
         # jsonファイルを書き出し
-        write_json(item_detail_json)
+        write_json(item_detail_json, f'/mnt/json/list/{today_date}.json')
+        write_json(tags_json, f'/mnt/json/tag/{today_date}.json')
     except:
         raise Exception("Can't Create Json")
     
 except Exception as e:
     # jsonファイル作成失敗
+    mkdir('/mnt/log/')
     with open(f'/mnt/log/{today_date}', 'w') as f:
         f.write(e)
