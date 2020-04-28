@@ -12,7 +12,7 @@ docker network create qiita
 
 If the following files are not created
 
-/config/debugbar.php
+/config/debugbar.php  
 /vendor/barryvdh/laravel-debugbar/config/debugbar.php
 
 
