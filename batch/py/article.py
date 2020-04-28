@@ -53,8 +53,6 @@ try:
     }
 
     item_json = []
-    item_detail_json = []
-    tags_json = []
     result = []
 
     res = requests.get(url, headers=headers)
@@ -74,6 +72,10 @@ try:
     items = json.loads(item_json[1])
 
     try:
+        item_detail_list = []
+        tags_list = []
+        author_list = []
+
         for edges in items['trend']['edges']:
             title = edges['node']['title']
             likes = edges['node']['likesCount']
@@ -90,15 +92,18 @@ try:
                 'tag_list' : tag_list
             }
 
-            item_detail_json.append(item)
-            tags_json.append(tag_list)
+            item_detail_list.append(item)
+            tags_list.append(tag_list)
+            author_list.append(author_name)
 
         mkdir('/mnt/json/list/')
         mkdir('/mnt/json/tag/')
+        mkdir('/mnt/json/author/')
 
         # jsonファイルを書き出し
-        write_json(item_detail_json, f'/mnt/json/list/{today_date}.json')
-        write_json(tags_json, f'/mnt/json/tag/{today_date}.json')
+        write_json(item_detail_list, f'/mnt/json/list/{today_date}.json')
+        write_json(tags_list, f'/mnt/json/tag/{today_date}.json')
+        write_json(author_list, f'/mnt/json/author/{today_date}.json')
     except:
         raise Exception("Can't Create Json")
     
