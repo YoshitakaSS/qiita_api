@@ -7,9 +7,7 @@ ARG project_dir=/usr/src/app
 ENV TZ=Asia/Tokyo
 
 RUN apt-get update && \
-    apt-get install -y cron && \
-    apt-get install -y vim && \
-    apt-get install -y tzdata && \
+    apt-get install -y cron less vim tzdata && \
     rm -rf /var/lib/apt/lists/* && \
     echo "${TZ}" > /etc/timezone && \
     rm /etc/localtime && \
