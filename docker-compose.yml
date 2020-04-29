@@ -81,5 +81,7 @@ services:
       - ./batch:/usr/src/app
       - ./mnt:/mnt
       - ./etc/cron.d:/etc/cron.d
+    command: >
+      crontab /etc/cron.d/qiita
     networks:
       - qiita
