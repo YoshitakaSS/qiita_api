@@ -55,6 +55,7 @@ try:
         "User-Agent" : "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1"
     }
 
+    items = []
     item_json = []
     result = []
 
@@ -64,15 +65,17 @@ try:
     soup = BeautifulSoup(res.text, "html.parser")
 
     try:
-        items = soup.find(class_="p-home_main") 
+        main_items = soup.find(class_="p-home_main") 
 
-        for items in soup.find_all():
-            if "data-hyperapp-props" in items.attrs:
-                item_json.append(items["data-hyperapp-props"])
+        for main_items in soup.find_all():
+            if "data-hyperapp-props" in main_items.attrs:
+                item_json.append(main_items["data-hyperapp-props"])
+        items = json.loads(item_json[1])
     except:
         raise Exception("Not Found Json Dom Info")
 
-    items = json.loads(item_json[1])
+    if 'edges' not in items['trend']:
+        raise Exception("The expected list does not exist")
 
     try:
         item_detail_list = []
@@ -80,19 +83,26 @@ try:
         author_list = []
 
         for edges in items['trend']['edges']:
+            if 'uuid' not in edges['node']:
+                raise Exception("Not Found UUID")
+
+            uuid = edges['node']['uuid']
+
             title = edges['node']['title']
             likes = edges['node']['likesCount']
-            article_url =  url + edges['node']['author']['urlName'] + '/items/' + edges['node']['uuid']
+            article_url =  url + edges['node']['author']['urlName'] + '/items/' + uuid
             author_name = edges['node']['author']['urlName']
             create_at = datetime.datetime.now().date()
             tag_list = get_article_tags(article_url)
 
             item = {
-                'title' : title,
-                'likes' : likes,
+                'article_title' : title,
                 'article_url' : article_url,
+                'article_id' : edges['node']['uuid'],
+                'likes' : likes,
+                'uuid' : uuid,
                 'author_name' : author_name,
-                'tag_list' : tag_list
+                'tag_list' : tag_list,
             }
 
             item_detail_list.append(item)
@@ -104,9 +114,9 @@ try:
         mkdir('/mnt/json/author/')
 
         # jsonファイルを書き出し
-        write_json(item_detail_list, f'/mnt/json/list/{today_date}.json')
-        write_json(tags_list, f'/mnt/json/tag/{today_date}.json')
-        write_json(author_list, f'/mnt/json/author/{today_date}.json')
+        write_json(item_detail_list, f"/mnt/json/list/{today_date}.json")
+        write_json(tags_list, f"/mnt/json/tag/{today_date}.json")
+        write_json(author_list, f"/mnt/json/author/{today_date}.json")
     except:
         raise Exception("Can't Create Json")
     
