@@ -17,6 +17,9 @@ RUN apt-get update && \
 WORKDIR $project_dir
 
 ADD requirements.txt $project_dir/py/
-RUN touch /var/log/cron.log
+ADD ./etc/cron.d/ /etc/cron.d/
 
-RUN pip install -r $project_dir/py/requirements.txt
+RUN chmod 0644 /etc/cron.d/* && \
+    touch /var/log/cron.log && \
+    crontab /etc/cron.d/qiita && \
+    pip install -r $project_dir/py/requirements.txt

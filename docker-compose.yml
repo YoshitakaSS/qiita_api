@@ -71,9 +71,9 @@ services:
       - ${DB_PORT}:4306
     networks: 
       - qiita
-  
+
   qiita_batch:
-    container_name: "python_batch"
+    container_name: "qiita_batch"
     build: 
       context: ./docker/python
     tty: true
@@ -81,7 +81,5 @@ services:
       - ./batch:/usr/src/app
       - ./mnt:/mnt
       - ./etc/cron.d:/etc/cron.d
-    command: >
-      crontab /etc/cron.d/qiita
     networks:
       - qiita
