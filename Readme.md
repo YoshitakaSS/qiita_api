@@ -23,6 +23,14 @@ ff200aa14178        d6c4677d678a        "python3"                18 hours ago   
 2c63d1243a70        mysql:5.7           "docker-entrypoint.s…"   18 hours ago        Up 18 hours         3306/tcp, 33060/tcp, 0.0.0.0:4306->4306/tcp   qiita_db
 ```
 
+## about batch_container
+cron setting in batch_container
+batch container creates json (tags, list, author...) at 10am every day
+
+json path: /mnt/json/*
+
+mnt dir is shared with php container
+
 ### To Use Laravel Project
 
 #### ◆laravel-debugbar
