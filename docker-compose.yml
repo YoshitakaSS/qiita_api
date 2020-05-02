@@ -80,6 +80,5 @@ services:
     volumes:
       - ./batch:/usr/src/app
       - ./mnt:/mnt
-      - ./etc/cron.d:/etc/cron.d
     networks:
       - qiita
