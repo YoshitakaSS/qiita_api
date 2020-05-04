@@ -68,7 +68,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${DB_PASS}
       - TZ="Asia/Tokyo"
     ports:
-      - ${DB_PORT}:4306
+      - ${DB_PORT}:3306
     networks: 
       - qiita
 
