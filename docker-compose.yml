@@ -27,7 +27,7 @@ services:
     command: >
         bash -c "php-fpm"
     depends_on:
-      - qiita_db
+      - mysql
     networks: 
       - qiita
 
@@ -55,7 +55,7 @@ services:
     networks: 
       - qiita
 
-  qiita_db:
+  mysql:
     image: mysql:5.7
     container_name: "qiita_db"
     volumes:
