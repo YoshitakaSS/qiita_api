@@ -47,6 +47,17 @@ def write_json(json_list, path):
 def mkdir(path):
     os.makedirs(path, exist_ok=True)
 
+def get_unique_list(seq):
+    seen = []
+    return [x for x in seq if x not in seen and not seen.append(x)]
+
+def get_unique_tag(tag_lists):
+    tags = []
+    for v in tag_lists:
+        for i in v:
+            tags.append(i)
+    return tags        
+
 try:
     # Root URL
     url = "https://qiita.com/"
@@ -112,6 +123,9 @@ try:
         mkdir('/mnt/json/list/')
         mkdir('/mnt/json/tag/')
         mkdir('/mnt/json/author/')
+
+        # タグをuniqu化
+        tags_list = get_unique_tag(tags_list)
 
         # jsonファイルを書き出し
         write_json(item_detail_list, f"/mnt/json/list/{today_date}.json")
