@@ -3,18 +3,20 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Api\Requests\AuthorRequest;
-use App\Services\V1\AuthorService;
+use App\Services\Api\V1\AuthorService;
 
 class AuthorController extends Controller
 {
-    public function __construct()
+    protected $service;
+
+    public function __construct(AuthorService $authorService)
     {
-        $service = new AuthorService();
+        $this->service = $authorService;
     }
 
     public function index(AuthorRequest $request)
     {
-        return 'hoge';
+        return $this->service->getAllList();
     }
 
     public function store()
