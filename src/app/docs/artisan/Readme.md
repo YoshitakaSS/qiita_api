@@ -91,3 +91,10 @@ public function run()
         ・・・・・・
 }
 ```
+
+### Make Resource
+detail: https://readouble.com/laravel/5.5/ja/eloquent-resources.html
+
+```bash
+$ php artisan make:resource Users --collection
+```
