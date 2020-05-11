@@ -19,36 +19,22 @@ class AuthorRepository implements AuthorInterface
      *
      * @return array
      */
-    public function getAllList()
+    public function getAllList($request)
     {
+        if (!empty($request->name)) {
+            return $this->author
+                    ->where('author_name', $request->name)
+                    ->get();
+        }
+
+        if (!empty($request->count)) {
+            return $this->author
+                    ->where('count', '>=', $request->count)
+                    ->get();
+        }
+
         return $this->author
                     ->limit(30)
-                    ->get();
-    }
-
-    /**
-     * 著者の名前で取得
-     *
-     * @param string
-     * @return array
-     */
-    public function getListByAuthorName(string $name)
-    {
-        return $this->author
-                    ->where('author_name', $name)
-                    ->get();
-    }
-
-    /**
-     * 総数以上を取得
-     *
-     * @param int
-     * @return array
-     */
-    public function getListByCount(int $count)
-    {
-        return $this->author
-                    ->where('count', '<=', $count)
                     ->get();
     }
 }

@@ -21,9 +21,15 @@ class AuthorService
 
     }
 
-    public function getAllList()
+    /**
+     * 著者の一覧を返す
+     *
+     * @param AuthorRequest $request
+     * @return array
+     */
+    public function getAllList($request)
     {
-        $authorsList = $this->authorRepository->getAllList();
+        $authorsList = $this->authorRepository->getAllList($request);
 
         $authorResource = new AuthorsResource($authorsList);
 
@@ -31,15 +37,5 @@ class AuthorService
             'Info' => $this->infoResource,
             'List' => $authorResource
         ];
-    }
-
-    public function getListByAuthorName($name)
-    {
-        $this->authorRepository->getListByAuthorName($name);
-    }
-
-    public function getListByCount($count)
-    {
-        $this->authorRepository->getListByCount($count);
     }
 }

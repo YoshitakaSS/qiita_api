@@ -10,25 +10,10 @@ interface AuthorInterface
     /**
      * 著者の一覧を返却
      *
+     * @param AuthorRequest $request
      * @return array
      */
-    public function getAllList();
-
-    /**
-     * 著者の名前で取得
-     *
-     * @param string
-     * @return array
-     */
-    public function getListByAuthorName(string $name);
-
-    /**
-     * 総数で取得
-     *
-     * @param int
-     * @return array
-     */
-    public function getListByCount(int $count);
+    public function getAllList($request);
 
     // // ------------------
     // // About Insert

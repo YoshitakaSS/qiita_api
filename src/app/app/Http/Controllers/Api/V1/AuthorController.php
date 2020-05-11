@@ -16,7 +16,7 @@ class AuthorController extends Controller
 
     public function index(AuthorRequest $request)
     {
-        return $this->service->getAllList();
+        return $this->service->getAllList($request);
     }
 
     public function store()
