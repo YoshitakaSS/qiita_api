@@ -62,6 +62,39 @@ public function run()
 ```
 
 Excute Seeding
+```bash
+$ php artisan db:seed;
 ```
-php artisan db:seed;
+
+##### Seeder Option
+◆If you want to run only a particular seeder
+
+```bash
+$ php artisan db:seed --class={SeederClassName}Seeder;
+```
+
+◆If you want to return the seeder with the migration
+
+```bash
+$ php artisan migrate:refresh --seed
+```
+
+◆Clear all data and run the seeder each time
+
+```php
+public function run()
+{
+    // データのクリア
+    DB::table('table_name')->truncate();
+
+    // データ挿入
+        ・・・・・・
+}
+```
+
+### Make Resource
+detail: https://readouble.com/laravel/5.5/ja/eloquent-resources.html
+
+```bash
+$ php artisan make:resource Users --collection
 ```
