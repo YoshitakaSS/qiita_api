@@ -98,3 +98,32 @@ detail: https://readouble.com/laravel/5.5/ja/eloquent-resources.html
 ```bash
 $ php artisan make:resource Users --collection
 ```
+
+
+### Make Batch Class
+detail: https://readouble.com/laravel/5.5/ja/scheduling.html
+
+in Creaing src/app/app/Console/Commands
+
+```bash
+$ php artisan make:command InsertAuthorsCommands --command="insertAuthors"
+```
+
+After the above command ends
+
+
+After the above command ends, Add class define in app/Console/Kernel.php
+
+```php
+
+    protected $commands = [
+        \App\Console\Commands\Inspire::class,
+        \App\Console\Commands\InsertAuthorsCommands::class, // add
+    ];
+```
+
+Exec Command
+
+```bash
+$ php artisan insertAuthors
+```
