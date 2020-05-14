@@ -43,7 +43,11 @@ class InsertAuthorsCommands extends Command
      */
     public function handle()
     {
+        $starttime = microtime(true);
+
         $today = date('Y-m-d');
+
+        $this->info('process: start');
 
         // 教諭フォルダにあるJSONを取得する
         $authorJson = file_get_contents("/mnt/json/author/$today.json");
@@ -62,8 +66,10 @@ class InsertAuthorsCommands extends Command
 
             }
         } catch (Exception $e) {
-            dd('fail' . $e);
+            $this->info(sprintf('process: %s error: %s', 'error', $e));
+        } finally {
+            $endtime = microtime(true) - $starttime;
+            $this->info(sprintf('process: %s, processTime: %s', 'end', $endtime));
         }
-
     }
 }
