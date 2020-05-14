@@ -56,7 +56,7 @@ class AuthorRepository implements AuthorInterface
                     ->insert([
                         'author_name' => $author,
                         'count' => 1,
-                        'create_at' => date('Y-m-d H:m:s')
+                        'created_at' => date('Y-m-d H:m:s')
                     ]);
     }
 
