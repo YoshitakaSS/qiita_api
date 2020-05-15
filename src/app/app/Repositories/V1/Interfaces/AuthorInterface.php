@@ -15,27 +15,15 @@ interface AuthorInterface
      */
     public function getAllList($request);
 
-    // // ------------------
-    // // About Insert
-    // // ------------------
+    public function getAuthorByName(string $authorName);
 
-    // /**
-    //  * 著者の詳細を格納する
-    //  *
-    //  * @param array
-    //  * @return bool
-    //  */
-    // public function storeAuthors(array $author);
+    /**
+     * 著者の詳細を格納する
+     *
+     * @param array
+     * @return bool
+     */
+    public function storeAuthors(string $author);
 
-    // // ------------------
-    // // About Update
-    // // ------------------
-
-    // /**
-    //  * 著者の詳細を更新する
-    //  *
-    //  * @param array
-    //  * @return bool
-    //  */
-    // public function updateAuthors(array $author);
+    public function updateAuthors(string $author, int $count = 1);
 }

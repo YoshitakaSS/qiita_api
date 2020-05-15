@@ -37,4 +37,35 @@ class AuthorRepository implements AuthorInterface
                     ->limit(30)
                     ->get();
     }
+
+    public function getAuthorByName($authorName)
+    {
+        return $this->author
+                    ->where('author_name', $authorName)
+                    ->first();
+    }
+
+    /**
+     * 著者の一覧をInsertする
+     *
+     * @param string $author
+     */
+    public function storeAuthors($author)
+    {
+        return $this->author
+                    ->insert([
+                        'author_name' => $author,
+                        'count' => 1,
+                        'created_at' => date('Y-m-d H:m:s')
+                    ]);
+    }
+
+    public function updateAuthors($author, $count = 1)
+    {
+        return $this->author
+                    ->where('author_name', $author)
+                    ->update([
+                        'count' => ++$count,
+                    ]);
+    }
 }
