@@ -24,7 +24,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        /**
+         * バッチスケジュール
+         *
+         * スケジュール登録方法
+         * cd /var/www/qiita | php artisan schedule:run >> /dev/null 2>&1
+         */
+        $schedule->command('command:insertAuthors')->cron('0 10 * * *');
     }
 
     /**
