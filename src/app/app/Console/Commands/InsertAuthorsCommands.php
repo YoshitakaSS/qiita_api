@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use DB;
 use App\Repositories\V1\Interfaces\AuthorInterface;
+use App\Repositories\V1\Interfaces\JobInterface;
+use App\Services\JobService;
 use Exception;
 
 class InsertAuthorsCommands extends Command
@@ -24,16 +26,18 @@ class InsertAuthorsCommands extends Command
     protected $description = 'Insert authors json To Authors Table';
 
     protected $authorRepository;
+    protected $jobService;
 
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct(AuthorInterface $authorRepository)
+    public function __construct(AuthorInterface $authorRepository, JobInterface $jobRepository)
     {
         parent::__construct();
         $this->authorRepository = $authorRepository;
+        $this->jobService = new JobService($jobRepository, 'insert_author_job');
     }
 
     /**
@@ -43,17 +47,27 @@ class InsertAuthorsCommands extends Command
      */
     public function handle()
     {
+        $this->info('process: start');
         $starttime = microtime(true);
 
         $today = date('Y-m-d');
-
-        $this->info('process: start');
-
-        // 教諭フォルダにあるJSONを取得する
-        $authorJson = file_get_contents("/mnt/json/author/$today.json");
-        $authosList = json_decode($authorJson, true);
-
         try {
+            $jobData = $this->jobService->getJobData();
+
+            if (empty($jobData)) {
+                throw new Exception('job process is not defined');
+            }
+            // 実行中だったらthrow
+            if ($jobData->job_status == 200) {
+                throw new Exception('job prorocess is already running');
+            }
+            // jobを実行する
+            $this->jobService->runJob();
+
+            // 教諭フォルダにあるJSONを取得する
+            $authorJson = file_get_contents("/mnt/json/author/$today.json");
+            $authosList = json_decode($authorJson, true);
+
             foreach ($authosList as $author) {
                 // 既にデータがあるのか確認する
                 $res = $this->authorRepository->getAuthorByName($author);
@@ -68,6 +82,7 @@ class InsertAuthorsCommands extends Command
         } catch (Exception $e) {
             $this->info(sprintf('process: %s error: %s', 'error', $e));
         } finally {
+            $this->jobService->stopJob();
             $endtime = microtime(true) - $starttime;
             $this->info(sprintf('process: %s, processTime: %s', 'end', $endtime));
         }
