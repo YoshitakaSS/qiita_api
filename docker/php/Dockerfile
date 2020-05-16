@@ -42,6 +42,8 @@ RUN composer global require "laravel/installer"
 RUN composer require --dev barryvdh/laravel-debugbar
 # for api develop
 RUN composer require --dev laravel/telescope 
+# for schedule list
+RUN composer require --dev hmazter/laravel-schedule-list 
 
 # RUN /usr/sbin/setenforce Permissive
 
