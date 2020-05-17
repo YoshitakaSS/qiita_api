@@ -24,6 +24,13 @@ If you also want to create a migration
 php artisan make:model {Model_Name} --migration
 ```
 
+Execute migration file
+※Migration file cannot be executed in split
+
+```bash
+php artisan migrate
+```
+
 
 #### Migration Filed List
 Detail: https://readouble.com/laravel/5.8/ja/migrations.htmlp
