@@ -18,6 +18,7 @@ class CreateJobsTable extends Migration
             $table->string('job_name')->unique();
             $table->string('job_description');
             $table->integer('job_status');
+            $table->tinyInteger('is_last_succeeded');
             $table->dateTime('job_last_start_time');
             $table->dateTime('job_last_end_time');
             $table->timestamps();

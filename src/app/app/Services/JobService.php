@@ -28,9 +28,9 @@ class JobService
     /**
      * jobを止める
      */
-    public function stopJob()
+    public function stopJob(int $isLastSucceeded)
     {
-        return $this->jobRepository->updateJobStatus($this->jobName, 100, false);
+        return $this->jobRepository->updateJobStatus($this->jobName, 100, false, $isLastSucceeded);
     }
 
     /**

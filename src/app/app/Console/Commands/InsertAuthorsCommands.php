@@ -61,6 +61,11 @@ class InsertAuthorsCommands extends Command
             if ($jobData->job_status == 200) {
                 throw new Exception('job prorocess is already running');
             }
+            // 今日すでに実行済みであり、正常終了であれば実行しない
+            if ($jobData->is_last_succeeded == 0 && $jobData->job_last_start_time >= "$today 00:00:00") {
+                throw new Exception('todays process is already done');
+            }
+
             // jobを実行する
             $this->jobService->runJob();
 
@@ -77,12 +82,12 @@ class InsertAuthorsCommands extends Command
                 } else {
                     $this->authorRepository->updateAuthors($author, $res->count);
                 }
-
             }
         } catch (Exception $e) {
-            $this->info(sprintf('process: %s error: %s', 'error', $e));
+            $this->info(sprintf('process: %s errorinfo: %s', 'error', $e));
+            $this->jobService->stopJob(1);
         } finally {
-            $this->jobService->stopJob();
+            $this->jobService->stopJob(0);
             $endtime = microtime(true) - $starttime;
             $this->info(sprintf('process: %s, processTime: %s', 'end', $endtime));
         }

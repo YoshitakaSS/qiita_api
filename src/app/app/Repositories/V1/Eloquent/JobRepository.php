@@ -46,11 +46,13 @@ class JobRepository implements JobInterface
      * @param string
      * @param int
      * @param bool
+     * @param int 0:正常終了, 1:エラー終了
      */
-    public function updateJobStatus($jobName, $status, $isRun)
+    public function updateJobStatus($jobName, $status, $isRun, $isLastSucceeded = 0)
     {
         $updateList = [
-            'job_status' => $status
+            'job_status'        => $status,
+            'is_last_succeeded' => $isLastSucceeded
         ];
 
         $dateTime = date('Y-m-d H:m:s');

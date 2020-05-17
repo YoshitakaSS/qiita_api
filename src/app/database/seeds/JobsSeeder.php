@@ -17,6 +17,7 @@ class JobsSeeder extends Seeder
                 'insert_author_job',
                 'Qiitaのトレンド入りした著者を格納する',
                 100,
+                0,
                 '2000-01-01 00:00:00',
                 '2000-01-01 00:00:00'
             ]
