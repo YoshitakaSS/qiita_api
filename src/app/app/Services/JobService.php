@@ -27,6 +27,7 @@ class JobService
 
     /**
      * jobを止める
+     * @param int
      */
     public function stopJob(int $isLastSucceeded)
     {

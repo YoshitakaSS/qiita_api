@@ -14,6 +14,9 @@ class JobRepository implements JobInterface
         $this->job = $job;
     }
 
+    /**
+     * @param string
+     */
     public function getJobData($jobName)
     {
         return $this->job
