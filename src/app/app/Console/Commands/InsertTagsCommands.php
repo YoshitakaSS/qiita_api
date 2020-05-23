@@ -69,7 +69,7 @@ class InsertTagsCommands extends Command
             // jobを実行する
             $this->jobService->runJob();
 
-            // 教諭フォルダにあるJSONを取得する
+            // 共有フォルダにあるJSONを取得する
             $tagsJson = file_get_contents("/mnt/json/tag/$today.json");
             $tagList = json_decode($tagsJson, true);
 
