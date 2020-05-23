@@ -13,14 +13,14 @@ class JobsSeeder extends Seeder
     public function run()
     {
         // データのクリア
-        DB::table('authors')->truncate();
+        DB::table('jobs')->truncate();
 
         $paramList = [
             [
                 'job_name'                  => 'insert_author_job',
                 'job_description'           => 'Qiitaのトレンド入りした著者を格納する',
                 'job_status'                => 100,
-                'is_last_succeeded'         => 0,
+                'is_last_succeeded'         => 1,
                 'job_last_start_time'       => now(),
                 'job_last_end_time'         => now(),
                 'created_at'                => '2000-01-01 00:00:00',
@@ -30,7 +30,7 @@ class JobsSeeder extends Seeder
                 'job_name'                  => 'insert_tags_job',
                 'job_description'           => 'Qiitaのトレンド入りしたタグを格納する',
                 'job_status'                => 100,
-                'is_last_succeeded'         => 0,
+                'is_last_succeeded'         => 1,
                 'job_last_start_time'       => now(),
                 'job_last_end_time'         => now(),
                 'created_at'                => '2000-01-01 00:00:00',
