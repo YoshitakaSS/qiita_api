@@ -17,20 +17,20 @@ class TagsRepository implements TagsInterface
 
     public function getAllList($request)
     {
+        $tags = $this->tags;
         if (!empty($request->name)) {
-            return $this->tags
-                    ->where('tag_name', $request->name)
-                    ->get();
+            $tags = $tags->where('tag_name', $request->name);
         }
 
         if (!empty($request->count)) {
-            return $this->tags
-                    ->where('count', '>=', $request->count)
-                    ->get();
+            $tags = $tags->where('count', '>=', $request->count);
         }
 
-        return $this->tags
-                    ->limit(30)
+        if (!empty($request->created_at)) {
+            $tags = $tags->where('create_at', '=', $request->created_at);
+        }
+
+        return $tags->limit(30)
                     ->get();
     }
 
