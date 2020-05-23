@@ -19,7 +19,7 @@ class TagsRepository implements TagsInterface
     {
         if (!empty($request->name)) {
             return $this->tags
-                    ->where('tags_name', $request->name)
+                    ->where('tag_name', $request->name)
                     ->get();
         }
 
@@ -38,7 +38,7 @@ class TagsRepository implements TagsInterface
     {
         return $this->tags
                     ->where('tag_name', $tagName)
-                    ->get();
+                    ->first();
     }
 
     public function storeTags($tagsList)
@@ -47,14 +47,18 @@ class TagsRepository implements TagsInterface
                     ->insert([
                         'tag_name'   => $tagsList['tag_name'],
                         'tag_url'    => self::ROOT_URL . $tagsList['tag_link'],
-                        'tag_count'      => 1,
+                        'count'  => 1,
                         'created_at' => date('Y-m-d H:m:s')
                     ]);
     }
 
-    public function updateTagsCount($tagList)
+    public function updateTagsCount($tagName, $count = 1)
     {
-
+        return $this->tags
+                    ->where('tag_name', $tagName)
+                    ->update([
+                        'count' => ++$count,
+                    ]);
     }
 
 }
