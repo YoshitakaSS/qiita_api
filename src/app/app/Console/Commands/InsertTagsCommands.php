@@ -36,7 +36,7 @@ class InsertTagsCommands extends Command
     {
         parent::__construct();
         $this->tagsRepository = $tagsRepository;
-        $this->jobService = $this->jobService = new JobService($jobRepository, 'insert_tags_job');
+        $this->jobService = new JobService($jobRepository, 'insert_tags_job');
 
     }
 
