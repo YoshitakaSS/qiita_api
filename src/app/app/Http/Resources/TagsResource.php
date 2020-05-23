@@ -24,9 +24,9 @@ class TagsResource extends ResourceCollection
                 'tagId'          => $resource->tag_id,
                 'tagName'        => $resource->tag_name,
                 'tagUrl'         => $resource->tag_url,
-                'tagCount'       => $resource->tag_count,
+                'tagCount'       => $resource->count,
                 'createDate'     => $resource->created_at,
-                'updateDate'     => $resource->updated_at,
+                'updateDate'     => $resource->updated_at ?? '',
             ];
         }
         return $list;
