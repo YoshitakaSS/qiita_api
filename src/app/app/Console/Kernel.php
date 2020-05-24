@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\InsertAuthorsCommands::class
+        \App\Console\Commands\InsertAuthorsCommands::class,
+        \App\Console\Commands\InsertTagsCommands::class
     ];
 
     /**
@@ -27,10 +28,11 @@ class Kernel extends ConsoleKernel
         /**
          * バッチスケジュール
          *
-         * スケジュール登録方法
-         * cd /var/www/qiita | php artisan schedule:run >> /dev/null 2>&1
+         * スケジュール登録方法(下記でcrontabに登録する)
+         * * * * * * cd /var/www/qiita | php artisan schedule:run >> /var/log/cron.log 2>&1
          */
-        $schedule->command('command:insertAuthors')->cron('0 11 * * *');
+        $schedule->command('insertAuthors')->cron('* 11 * * *');
+        $schedule->command('insertTags')->cron('* 11 * * *');
     }
 
     /**
