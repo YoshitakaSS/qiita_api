@@ -21,21 +21,17 @@ class AuthorRepository implements AuthorInterface
      */
     public function getAllList($request)
     {
+        $author = $this->author;
         if (!empty($request->name)) {
-            return $this->author
-                    ->where('author_name', $request->name)
-                    ->get();
+            $author = $author->where('author_name', $request->name);
         }
 
         if (!empty($request->count)) {
-            return $this->author
-                    ->where('count', '>=', $request->count)
-                    ->get();
+            $author = $author->where('count', '>=', $request->count);
         }
 
-        return $this->author
-                    ->limit(30)
-                    ->get();
+        return $author->limit(30)
+                        ->get();
     }
 
     public function getAuthorByName($authorName)
