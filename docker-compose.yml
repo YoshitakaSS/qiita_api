@@ -18,7 +18,7 @@ services:
         - XDEBUG_REMOTE_CONNECT_BACK=${XDEBUG_REMOTE_CONNECT_BACK}
     container_name: "qiita_php"
     volumes:
-      - ${SRC_DIR}:/var/www/qiita/:z
+      - ${SRC_DIR}/app/:/var/www/qiita/:z
       - ./logs/php/:/var/log/php/error.log
       - ./mnt:/mnt
     environment:
@@ -45,7 +45,7 @@ services:
     ports:
       - ${WEB_PORT}:90
     volumes:
-      - ${SRC_DIR}:/var/www/qiita:z
+      - ${SRC_DIR}/app/:/var/www/qiita:z
       - ./logs/nginx:/var/log/nginx
       - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
@@ -78,7 +78,7 @@ services:
       context: ./docker/python
     tty: true
     volumes:
-      - ./batch:/usr/src/app
+      - ${SRC_DIR}/batch:/usr/src/app
       - ./mnt:/mnt
     networks:
       - qiita

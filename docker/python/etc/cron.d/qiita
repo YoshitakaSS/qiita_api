@@ -3,4 +3,4 @@ PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 LANG=ja_JP.UTF-8
 
 # Create Article JSON (every day AM:10:00)
-0 10 * * * sh /usr/src/app/sh/get_article.sh >> /var/log/cron.log 2>&1
+0 10 * * * python /usr/src/app/py/article.py >> /var/log/cron.log 2>&1
