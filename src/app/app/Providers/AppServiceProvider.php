@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
 
         // V1 Services
         $this->app->bind(\App\Services\Api\V1\AuthorService::class);
-        $this->app->bind(\App\Services\Api\V1\ListService::class);
+        $this->app->bind(\App\Services\Api\V1\ListsService::class);
         $this->app->bind(\App\Services\Api\V1\TagsService::class);
     }
 
