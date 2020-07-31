@@ -37,6 +37,8 @@ RUN composer require --dev laravel/telescope
 # for schedule list
 RUN composer require --dev hmazter/laravel-schedule-list 
 
+RUN composer require predis/predis
+
 # RUN /usr/sbin/setenforce Permissive
 
 # COPY ./local_setting/init.sh /etc/rc.d/init.sh
