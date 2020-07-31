@@ -54,6 +54,11 @@ services:
       - VIRTUAL_HOST=${VIRTUAL_HOST}
     networks: 
       - qiita
+  
+  redis:
+    image: "redis:latest"
+    networks: 
+      - qiita
 
   mysql:
     build: 
