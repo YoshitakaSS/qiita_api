@@ -4,10 +4,12 @@ namespace App\Repositories\V1\Eloquent;
 
 use App\Repositories\V1\Eloquent\Models\Author;
 use App\Repositories\V1\Interfaces\AuthorInterface;
+use App\Repositories\V1\Cache\Cache;
 
 class AuthorRepository implements AuthorInterface
 {
     private $author;
+    private $primary = 'authorName';
 
     public function __construct(Author $author)
     {
@@ -23,7 +25,19 @@ class AuthorRepository implements AuthorInterface
     {
         $author = $this->author;
         if (!empty($request->name)) {
-            $author = $author->where('author_name', $request->name);
+            $keys = [
+                $this->primary => $request->name
+            ];
+
+            $value = Cache::getValue(__CLASS__, __FUNCTION__, $keys);
+
+            // キャッシュに値がなければDBアクセス
+            if (empty($value)) {
+                $value = $author->where('author_name', $request->name)->first();
+                // キャッシュする
+                Cache::setValue(__CLASS__, __FUNCTION__, $keys, $value);
+            }
+            return collect([$value]);
         }
 
         if (!empty($request->count)) {

@@ -8,12 +8,12 @@ class AuthorsResource extends ResourceCollection
 {
     const ROOT_URL = 'https://qiita.com/';
 
-    // private $resources;
+    private $authorResource;
 
 
     public function __construct($resource)
     {
-        $this->resources = $resource;
+        $this->authorResource = $resource;
     }
 
     /**
@@ -25,7 +25,7 @@ class AuthorsResource extends ResourceCollection
     public function toArray($request)
     {
         $list = [];
-        foreach ($this->resources as $resource) {
+        foreach ($this->authorResource as $resource) {
             $list[] = [
                 'authorId'      => $resource->author_id,
                 'authorName'    => $resource->author_name,
@@ -36,14 +36,5 @@ class AuthorsResource extends ResourceCollection
             ];
         }
         return $list;
-
-        // return [
-        //     'authorId'      => $this->author_id,
-        //     'authorName'    => $this->author_name,
-        //     'authorCount'   => $this->count,
-        //     'authorUrl'     => self::ROOT_URL . $this->author_name,
-        //     'create_at'     => $this->created_at,
-        //     'update_at'     => $this->updated_at,
-        // ];
     }
 }
