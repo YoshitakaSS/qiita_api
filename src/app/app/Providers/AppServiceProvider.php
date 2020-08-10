@@ -26,10 +26,15 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\V1\Interfaces\JobInterface::class,
             \App\Repositories\V1\Eloquent\JobRepository::class
         );
+        $this->app->bind(
+            \App\Repositories\V1\Interfaces\ListsInterface::class,
+            \App\Repositories\V1\Eloquent\ListsRepository::class
+        );
 
 
         // V1 Services
         $this->app->bind(\App\Services\Api\V1\AuthorService::class);
+        $this->app->bind(\App\Services\Api\V1\ListsService::class);
         $this->app->bind(\App\Services\Api\V1\TagsService::class);
     }
 

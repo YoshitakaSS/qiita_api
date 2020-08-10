@@ -21,4 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1'], function () {
     Route::get('/author', 'AuthorController@index');
     Route::get('/tags', 'TagsController@index');
+    Route::get('/list', 'ListController@index');
 });
