@@ -20,3 +20,9 @@ insert_authors:
 	docker-compose exec qiita_php php artisan insertAuthors
 insert_tags:
 	docker-compose exec qiita_php php artisan insertTags
+php:
+	docker-compose exec qiita_php bash
+test:
+	docker-compose exec qiita_php php artisan test
+help:
+	cat ./Makefile
