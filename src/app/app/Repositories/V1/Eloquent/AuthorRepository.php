@@ -33,11 +33,11 @@ class AuthorRepository implements AuthorInterface
 
             // キャッシュに値がなければDBアクセス
             if (empty($value)) {
-                $value = $author->where('author_name', $request->name)->first();
+                $value = $author->where('author_name', $request->name)->get();
                 // キャッシュする
                 Cache::setValue(__CLASS__, __FUNCTION__, $keys, $value);
             }
-            return collect([$value]);
+            return collect($value);
         }
 
         if (!empty($request->count)) {
