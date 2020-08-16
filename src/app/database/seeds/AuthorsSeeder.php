@@ -17,22 +17,22 @@ class AuthorsSeeder extends Seeder
 
         $paramList = [
             0 => [
-                'author_name' => 'AAAAAAA',
-                'count' => 1,
-                'created_at' => now(),
-                'updated_at' => now()
+                'author_name' => 'qiita_user_1',
+                'count' => 100,
+                'created_at' => '2020-10-10 21:00:00',
+                'updated_at' => '2020-10-10 22:00:00',
             ],
             1 => [
-                'author_name' => 'BBBBBBB',
-                'count' => 2,
-                'created_at' => now(),
-                'updated_at' => now()
+                'author_name' => 'qiita_user_2',
+                'count' => 150,
+                'created_at' => '2020-11-11 21:00:00',
+                'updated_at' => '2020-12-10 22:00:00',
             ],
             2 => [
-                'author_name' => 'CCCCCCC',
-                'count' => 3,
-                'created_at' => now(),
-                'updated_at' => now()
+                'author_name' => 'qiita_user_3',
+                'count' => 800,
+                'created_at' => '2020-12-23 21:00:00',
+                'updated_at' => '2020-12-25 22:30:00',
             ],
         ];
 

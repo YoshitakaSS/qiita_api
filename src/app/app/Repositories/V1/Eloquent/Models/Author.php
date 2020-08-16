@@ -12,5 +12,5 @@ class Author extends Model
     // const UPDATED_AT = 'update_dt';
 
     // protected $connection = 'mysql';
-    // protected $table = 'qiita_api.authors';
+    protected $table = 'authors';
 }
