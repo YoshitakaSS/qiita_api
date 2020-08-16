@@ -1,0 +1,14 @@
+{
+    "info" : {
+        "title" : "Author List API",
+        "description" : "Returns a list of authors trending in Qiita"
+    },
+    "List" : {
+        "authorId" : 1,
+        "authorName" : "qiita_user_1",
+        "authorCount" : 100,
+        "authorUrl" : "https://qiita.com/qiita_user_1",
+        "create_at" : "2020-10-10 21:00:00",
+        "update_at" : "2020-10-10 22:00:00"
+    }
+}
