@@ -6,6 +6,7 @@ use App\Repositories\V1\Eloquent\Models\Author;
 use App\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Symfony\Component\Console\Output\BufferedOutput;
 use Tests\TestCase;
 
 class AuthorCommandTest extends TestCase
@@ -21,11 +22,13 @@ class AuthorCommandTest extends TestCase
         // $this->setData();
     }
 
+    /**
+     * ArtisanCommand（batch）で生成されたデータが正しいのか検証する
+     */
     public function testAuthorCommand()
     {
-        Artisan::call('insertAuthors');
-        $this->author = new Author();
-        dd($this->author->get());
+        // 自作コマンドを実行する
+        Artisan::call('command:insertAuthors', []);
 
         $authorJson = file_get_contents(__DIR__ . '/Resources/AuthorUnitResource.json');
         $authorList = json_decode($authorJson, true);
