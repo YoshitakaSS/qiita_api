@@ -6,7 +6,7 @@ use App\Repositories\V1\Eloquent\Models\Author;
 use App\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class AuthorTest extends TestCase
 {
