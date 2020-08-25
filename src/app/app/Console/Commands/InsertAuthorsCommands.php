@@ -51,7 +51,11 @@ class InsertAuthorsCommands extends Command
         $starttime = microtime(true);
 
         $today = date('Y-m-d');
+
         try {
+            $filePath = in_array(env('APP_ENV'), ['local', 'dev', 'testing'], true)
+                        ? __DIR__ . '/../../../tests/Unit/Resources/AuthorUnitResource.json' : "/mnt/json/author/$today.json";
+
             $jobData = $this->jobService->getJobData();
 
             if (empty($jobData)) {
@@ -70,7 +74,7 @@ class InsertAuthorsCommands extends Command
             $this->jobService->runJob();
 
             // 教諭フォルダにあるJSONを取得する
-            $authorJson = file_get_contents("/mnt/json/author/$today.json");
+            $authorJson = file_get_contents($filePath);
             $authosList = json_decode($authorJson, true);
 
             foreach ($authosList as $author) {
