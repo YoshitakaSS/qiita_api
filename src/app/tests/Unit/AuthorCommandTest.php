@@ -28,8 +28,9 @@ class AuthorCommandTest extends TestCase
     public function testAuthorCommand()
     {
         // 自作コマンドを実行する
-        Artisan::call('command:insertAuthors', []);
-
+        $output = new BufferedOutput();
+        Artisan::call('command:insertAuthors', [], $output);
+        // todo: UnitTest上からだとうまく動かないので調整する
         $authorJson = file_get_contents(__DIR__ . '/Resources/AuthorUnitResource.json');
         $authorList = json_decode($authorJson, true);
 
